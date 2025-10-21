@@ -1,4 +1,4 @@
-const data = [
+const movies = [
     {
         id: crypto.randomUUID(),
         cover: "once-in-ho.jpg",
@@ -52,7 +52,7 @@ const data = [
 ];
 
 function getAllMovies() {
-    return data;
+    return movies;
 }
 
 export { getAllMovies };
