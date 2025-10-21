@@ -1,5 +1,6 @@
 import Movies from "./components/Movies";
 import Sidebar from "./components/Sidebar";
+import Footer from "./sections/Footer";
 import Header from "./sections/Header";
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
                     <Movies />
                 </div>
             </main>
+            <Footer />
         </>
     );
 }
