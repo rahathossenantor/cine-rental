@@ -8,7 +8,7 @@ import Rating from "./Rating";
 export default function Movie({ movie }) {
     const [showModal, setShowModal] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState(null);
-    const { cartItems, setCartItems } = useContext(MovieContext);
+    const { state, dispatch } = useContext(MovieContext);
 
     const handleShowModal = (movie) => {
         setSelectedMovie(movie);
@@ -21,9 +21,9 @@ export default function Movie({ movie }) {
     };
 
     const handleAddToCart = (movie) => {
-        const isExists = cartItems.find((item) => item.id === movie.id);
+        const isExists = state.cartItems.find((item) => item.id === movie.id);
         if (!isExists) {
-            setCartItems((prevItems) => [...prevItems, movie]);
+            dispatch({ type: "ADD_TO_CART", payload: movie });
         }
     };
 

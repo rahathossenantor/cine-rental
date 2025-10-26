@@ -5,11 +5,10 @@ import MovieContext from "../contexts/MovieContext";
 import { getMovieUrl } from "../utils/cine-utils";
 
 export default function Cart({ onClose }) {
-    const { cartItems, setCartItems } = useContext(MovieContext);
+    const { state, dispatch } = useContext(MovieContext);
 
-    const handleRemoveItem = (itemId) => {
-        const updatedCart = cartItems.filter((item) => item.id !== itemId);
-        setCartItems(updatedCart);
+    const handleRemoveItem = (item) => {
+        dispatch({ type: "REMOVE_FROM_CART", payload: item });
     };
 
     return (
@@ -20,12 +19,12 @@ export default function Cart({ onClose }) {
                         Your Movies
                     </h2>
                     <div className="space-y-8 lg:space-y-12 max-h-[450px] overflow-auto mb-10 lg:mb-14">
-                        {cartItems.length === 0 ? (
+                        {state.cartItems.length === 0 ? (
                             <p className="text-center text-gray-500">
                                 Your cart is empty.
                             </p>
                         ) : (
-                            cartItems.map((item) => (
+                            state.cartItems.map((item) => (
                                 <div
                                     key={item.id}
                                     className="grid grid-cols-[1fr_auto] gap-4"
@@ -54,7 +53,7 @@ export default function Cart({ onClose }) {
                                         <button
                                             className="bg-[#D42967] rounded-md p-2 md:px-4 inline-flex items-center space-x-2 text-white cursor-pointer"
                                             onClick={() =>
-                                                handleRemoveItem(item.id)
+                                                handleRemoveItem(item)
                                             }
                                         >
                                             <img

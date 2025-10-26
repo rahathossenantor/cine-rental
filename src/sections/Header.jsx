@@ -8,7 +8,7 @@ import MovieContext from "../contexts/MovieContext";
 
 export default function Header() {
     const [showCart, setShowCart] = useState(false);
-    const { cartItems } = useContext(MovieContext);
+    const { state } = useContext(MovieContext);
 
     const handleCartOpen = () => {
         setShowCart(true);
@@ -57,7 +57,7 @@ export default function Header() {
                                 alt="shopping cart"
                             />
                             <span className="rounded-full absolute top-[-12px] left-[28px] bg-[#12CF6F] text-white text-center p-[2px] w-[30px] h-[30px]">
-                                {cartItems.length}
+                                {state.cartItems.length}
                             </span>
                         </a>
                     </li>
