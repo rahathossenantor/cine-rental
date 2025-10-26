@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import tag from "../assets/tag.svg";
+import MovieContext from "../contexts/movieContext";
 import { getMovieUrl } from "../utils/cine-utils";
 import MovieDetailsModal from "./MovieDetailsModal";
 import Rating from "./Rating";
@@ -7,6 +8,7 @@ import Rating from "./Rating";
 export default function Movie({ movie }) {
     const [showModal, setShowModal] = useState(false);
     const [selectedMovie, setSelectedMovie] = useState(null);
+    const { cartItems, setCartItems } = useContext(MovieContext);
 
     const handleShowModal = (movie) => {
         setSelectedMovie(movie);
@@ -18,12 +20,20 @@ export default function Movie({ movie }) {
         setShowModal(false);
     };
 
+    const handleAddToCart = (movie) => {
+        const isExists = cartItems.find((item) => item.id === movie.id);
+        if (!isExists) {
+            setCartItems((prevItems) => [...prevItems, movie]);
+        }
+    };
+
     return (
         <>
             {showModal && (
                 <MovieDetailsModal
                     movie={selectedMovie}
                     onClose={handleCloseModal}
+                    onAddToCart={handleAddToCart}
                 />
             )}
             <figure className="p-4 border border-black/10 shadow-sm rounded-xl">
@@ -43,6 +53,7 @@ export default function Movie({ movie }) {
                     <a
                         className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
                         href="#"
+                        onClick={() => handleAddToCart(movie)}
                     >
                         <img src={tag} alt="tag" />
                         <span>${movie.price} | Add to Cart</span>
